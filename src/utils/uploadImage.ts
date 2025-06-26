@@ -2,7 +2,11 @@ import { supabase } from "../supabaseClient";
 
 export const uploadImage = async (
   file: File | undefined
-): Promise<{ filePath: string; fileName: string } | null> => {
+): Promise<{
+  filePath: string;
+  fileName: string;
+  publicUrl: string;
+} | null> => {
   if (!file) {
     console.error("No file provided for upload.");
     return null;
@@ -34,7 +38,12 @@ export const uploadImage = async (
       return null;
     }
 
-    return { filePath, fileName };
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from("images").getPublicUrl(filePath);
+    return { filePath, fileName, publicUrl };
+
+    return { filePath, fileName, publicUrl };
   } catch (e) {
     console.error("Unexpected error during upload:", e);
     return null;
