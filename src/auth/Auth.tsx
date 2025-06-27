@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useAuthSession } from "./AuthSessionContext";
 import { Navigate } from "react-router-dom";
-import styles from "../utils.module.css";
 import { supabase } from "../supabaseClient";
 
 export const Auth = () => {
@@ -30,9 +29,11 @@ export const Auth = () => {
   }
 
   return (
-    <div className={styles.centeredFlex}>
+    <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
       <div>
-        <h1>Knowtd</h1>
+        <h1 className=" text-5xl font-bold text-center text-blue-600 m-4">
+          Knowtd...
+        </h1>
         <p>Sign in via magic link with your email below</p>
         {loading ? (
           "Sending magic link..."
