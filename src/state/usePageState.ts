@@ -7,21 +7,26 @@ import { createPage } from "../utils/createPage";
 export const usePageState = (initialState: Page) => {
   const [page, setPage] = useSyncedState(initialState, updatePage);
 
+  // All functions now use standard React immutable updates
   const addNode = (node: NodeData, index: number) => {
-    setPage((draft) => {
-      draft.nodes.splice(index, 0, node);
-    });
+    setPage((prev) => ({
+      ...prev,
+      nodes: [...prev.nodes.slice(0, index), node, ...prev.nodes.slice(index)],
+    }));
   };
 
   const removeNodeByIndex = (nodeIndex: number) => {
-    setPage((draft) => {
-      draft.nodes.splice(nodeIndex, 1);
-    });
+    setPage((prev) => ({
+      ...prev,
+      nodes: prev.nodes.filter((_, index) => index !== nodeIndex),
+    }));
   };
 
   const changeNodeValue = (nodeIndex: number, value: string) => {
-    setPage((draft) => {
-      draft.nodes[nodeIndex].value = value;
+    setPage((prev) => {
+      const newNodes = [...prev.nodes];
+      newNodes[nodeIndex] = { ...newNodes[nodeIndex], value };
+      return { ...prev, nodes: newNodes };
     });
   };
 
@@ -29,42 +34,49 @@ export const usePageState = (initialState: Page) => {
     if (type === "page") {
       const newPage = await createPage();
       if (newPage) {
-        setPage((draft) => {
-          draft.nodes[nodeIndex].type = type;
-          draft.nodes[nodeIndex].value = newPage.slug;
+        setPage((prev) => {
+          const newNodes = [...prev.nodes];
+          newNodes[nodeIndex] = {
+            ...newNodes[nodeIndex],
+            type,
+            value: newPage.slug,
+          };
+          return { ...prev, nodes: newNodes };
         });
       }
     } else {
-      setPage((draft) => {
-        draft.nodes[nodeIndex].type = type;
-        draft.nodes[nodeIndex].value = "";
+      setPage((prev) => {
+        const newNodes = [...prev.nodes];
+        newNodes[nodeIndex] = {
+          ...newNodes[nodeIndex],
+          type,
+          value: "",
+        };
+        return { ...prev, nodes: newNodes };
       });
     }
   };
 
   const setNodes = (nodes: NodeData[]) => {
-    setPage((draft) => {
-      draft.nodes = nodes;
-    });
+    setPage((prev) => ({ ...prev, nodes }));
   };
 
   const setTitle = (title: string) => {
-    setPage((draft) => {
-      draft.title = title;
-    });
+    setPage((prev) => ({ ...prev, title }));
   };
 
   const setCoverImage = (coverImage: string) => {
-    setPage((draft) => {
-      draft.cover = coverImage;
-    });
+    setPage((prev) => ({ ...prev, cover: coverImage }));
   };
 
   const reorderNodes = (id1: string, id2: string) => {
-    setPage((draft) => {
-      const index1 = draft.nodes.findIndex((node) => node.id === id1);
-      const index2 = draft.nodes.findIndex((node) => node.id === id2);
-      draft.nodes = arrayMove(draft.nodes, index1, index2);
+    setPage((prev) => {
+      const index1 = prev.nodes.findIndex((node) => node.id === id1);
+      const index2 = prev.nodes.findIndex((node) => node.id === id2);
+      return {
+        ...prev,
+        nodes: arrayMove([...prev.nodes], index1, index2),
+      };
     });
   };
 
