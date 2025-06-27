@@ -32,7 +32,7 @@ export const Auth = () => {
   return (
     <div className={styles.centeredFlex}>
       <div>
-        <h1>ZTM Notes App</h1>
+        <h1>Knowtd</h1>
         <p>Sign in via magic link with your email below</p>
         {loading ? (
           "Sending magic link..."
@@ -46,7 +46,9 @@ export const Auth = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email"
             />
-            <button>Send magic link</button>
+            <button className="bg-blue-100 text-blue-600 hover:bg-blue-300 rounded px-4 py-2 font-bold cursor-pointer">
+              Send magic link
+            </button>
           </form>
         )}
       </div>
