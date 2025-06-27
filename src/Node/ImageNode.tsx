@@ -1,5 +1,6 @@
 import type { NodeData } from "../utils/types";
-import type { ChangeEvent, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import type { ChangeEvent } from "react";
 import { useAppState } from "../state/AppStateContext";
 import cx from "classnames";
 import styles from "./Node.module.css";
