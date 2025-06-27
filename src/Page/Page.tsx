@@ -1,3 +1,4 @@
+import type { NodeData } from "../utils/types";
 import { useFocusedNodeIndex } from "./useFocusedNodeIndex";
 import { Cover } from "./Cover";
 import { Spacer } from "./Spacer";
@@ -41,7 +42,7 @@ export const Page = () => {
         <Title addNode={addNode} title={title} changePageTitle={setTitle} />
         <DndContext onDragEnd={handleDragEvent}>
           <SortableContext items={nodes} strategy={verticalListSortingStrategy}>
-            {nodes.map((node, index) => (
+            {nodes.map((node: NodeData, index: number) => (
               <NodeContainer
                 key={node.id}
                 node={node}
