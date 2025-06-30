@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { Loader } from "./Loader";
-import styles from "../utils.module.css";
 
 type FileImageProps = {
   filePath: string;
@@ -28,7 +27,7 @@ export const FileImage = ({ filePath, ...props }: FileImageProps) => {
 
   if (loading) {
     return (
-      <div className={styles.centeredFlex}>
+      <div>
         <Loader />
       </div>
     );

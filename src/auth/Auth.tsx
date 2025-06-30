@@ -29,8 +29,8 @@ export const Auth = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
-      <div>
+    <div className="flex flex-col items-center justify-center h-screen bg-[var(--background)] text-white">
+      <div className=" flex flex-col gap-3">
         <h1 className=" text-5xl font-bold text-center text-blue-600 m-4">
           Knowtd...
         </h1>
@@ -38,17 +38,20 @@ export const Auth = () => {
         {loading ? (
           "Sending magic link..."
         ) : (
-          <form onSubmit={handleLogin}>
-            <label htmlFor="email">Email: </label>
+          <form className=" flex flex-col gap-3" onSubmit={handleLogin}>
+            <label className="text-blue-600" htmlFor="email">
+              Email:{" "}
+            </label>
             <input
+              className="border-2 border-blue-600 rounded p-2 "
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email"
             />
-            <button className="bg-blue-100 text-blue-600 hover:bg-blue-300 rounded px-4 py-2 font-bold cursor-pointer">
-              Send magic link
+            <button className="justify-center bg-blue-100 text-blue-600 hover:bg-blue-300 rounded px-4 py-2 font-bold cursor-pointer">
+              Send Magic Link
             </button>
           </form>
         )}

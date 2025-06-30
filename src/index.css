@@ -7,11 +7,11 @@
 }
 
 :root {
-  --foreground: #333;
+  --background: #01001d;
 }
 
 ::selection {
-  background-color: var(--foreground);
+  background-color: blueviolet;
   color: white;
 }
 

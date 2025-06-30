@@ -3,7 +3,6 @@ import { useMatch } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "../supabaseClient";
 import startPageScaffold from "./startPageScaffold.json";
-import styles from "../utils.module.css";
 import { Loader } from "../components/Loader";
 
 type InjectedProps = {
@@ -80,7 +79,7 @@ export function WithInitialState<TProps>(
 
     if (isLoading) {
       return (
-        <div className={styles.centeredFlex}>
+        <div>
           <Loader />
         </div>
       );
@@ -91,7 +90,7 @@ export function WithInitialState<TProps>(
     }
 
     if (!initialState) {
-      return <div className={styles.centeredFlex}>Page not found</div>;
+      return <div>Page not found</div>;
     }
 
     return <WrappedComponent {...props} initialState={initialState} />;
