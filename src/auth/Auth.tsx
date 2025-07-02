@@ -30,28 +30,33 @@ export const Auth = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[var(--background)] text-white">
-      <div className=" flex flex-col gap-3">
-        <h1 className=" text-5xl font-bold text-center text-blue-600 m-4">
-          Knowtd...
+      <div className="gap-3">
+        <h1 className=" text-7xl font-bold text-center text-blue-600 m-1">
+          Knowtd
         </h1>
-        <p>Sign in via magic link with your email below</p>
+        <p className="text-center text-gray-400 text-2xl m-1">
+          AI notetaking app that helps you write and organize your thoughts.
+        </p>
+        <p className="text-center mb-5">
+          Sign in via magic link with your email below...
+        </p>
         {loading ? (
           "Sending magic link..."
         ) : (
-          <form className=" flex flex-col gap-3" onSubmit={handleLogin}>
-            <label className="text-blue-600" htmlFor="email">
-              Email:{" "}
-            </label>
+          <form
+            className="flex gap-3 items-center justify-center"
+            onSubmit={handleLogin}
+          >
             <input
-              className="border-2 border-blue-600 rounded p-2 "
+              className="border-2 border-blue-600 rounded p-2 w-full max-w-xs"
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email"
             />
-            <button className="justify-center bg-blue-100 text-blue-600 hover:bg-blue-300 rounded px-4 py-2 font-bold cursor-pointer">
-              Send Magic Link
+            <button className="justify-center bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white rounded px-4 py-2 font-bold cursor-pointer">
+              Send Link
             </button>
           </form>
         )}
